@@ -19,7 +19,7 @@ class LaravelCisionFeed
             return false;
         }
 
-        return self::parse($request->body());
+        return self::parse($request->body(), $page);
     }
 
     /**
@@ -41,7 +41,7 @@ class LaravelCisionFeed
      * @param int $page
      * @return array|false
      */
-    public static function financial(int $page = 1): bool|array
+        public static function financial(int $page = 1): bool|array
     {
         $request = self::request($page, 'Financial');
 
@@ -108,9 +108,10 @@ class LaravelCisionFeed
 
     /**
      * @param string|null $data
-     * @return array|false
+     * @param int $page
+     * @return bool|array
      */
-    private static function parse(string $data = null): bool|array
+    private static function parse(string $data = null, int $page = 1): bool|array
     {
         if ($data === null) {
             return false;
@@ -135,6 +136,9 @@ class LaravelCisionFeed
                 'created_at' => Carbon::parse($row['pubDate'])->addHours(2)->format('Y-m-d H:i:s'),
             ];
         }
+
+        $return['previous_page'] = $page > 1 ? $page-- : false;
+        $return['next_page'] = count( $rows['channel']['item'] ) === 24 ? ++$page : false;
 
         return $return;
     }
