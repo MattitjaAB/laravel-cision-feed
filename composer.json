@@ -1,0 +1,24 @@
+{
+    "name": "mathiaspalmqvist/laravel-cision-feed",
+    "description": "Fetches press releases and financial reports from any public company on cision.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mathias Palmqvist",
+            "email": "mathias@mattitja.se"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Mathiaspalmqvist\\LaravelCisionFeed\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Mathiaspalmqvist\\LaravelCisionFeed\\LaravelCisionFeedProvider"
+            ]
+        }
+    }
+}
