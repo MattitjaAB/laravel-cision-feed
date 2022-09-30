@@ -128,7 +128,7 @@ class LaravelCisionFeed
         $return = [];
 
         foreach ($rows['channel']['item'] as $row) {
-            $return[] = [
+            $return['items'][] = [
                 'guid' => $row['guid'],
                 'title' => $row['title'],
                 'description' => $row['description'],
