@@ -1,20 +1,58 @@
-## How to install
-1. Install the package `composer require mathiaspalmqvist/laravel-cision-feed`
-2. add the cision company slug to `LARAVEL_CISION_FEED_SLUG` at your env
+# This is my package laravel-cision-feed
 
-## Functions
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/mattitjaab/laravel-cision-feed.svg?style=flat-square)](https://packagist.org/packages/mattitjaab/laravel-cision-feed)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/mattitjaab/laravel-cision-feed/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/mattitjaab/laravel-cision-feed/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/mattitjaab/laravel-cision-feed/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/mattitjaab/laravel-cision-feed/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
+[![Total Downloads](https://img.shields.io/packagist/dt/mattitjaab/laravel-cision-feed.svg?style=flat-square)](https://packagist.org/packages/mattitjaab/laravel-cision-feed)
 
-`LaravelCisionFeed::all();`
-Returns everyting from the feed.
+This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
 
-`LaravelCisionFeed::press();`
-Returns all press releases from the feed.
+## Support us
 
-`LaravelCisionFeed::financial();`
-Returns all financial reports from the feed.
+[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/laravel-cision-feed.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/laravel-cision-feed)
 
-`LaravelCisionFeed::news();`
-Returns all news from the feed.
+We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
 
-`LaravelCisionFeed::media();`
-Returns all media from the feed.
+We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+
+## Installation
+
+You can install the package via composer:
+
+```bash
+composer require mattitjaab/laravel-cision-feed
+```
+
+## Usage
+
+```php
+$cision = new Mattitja\Cision();
+echo $cision->echoPhrase('Hello, Mattitja!');
+```
+
+## Testing
+
+```bash
+composer test
+```
+
+## Changelog
+
+Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
+
+## Contributing
+
+Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+
+## Security Vulnerabilities
+
+Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
+
+## Credits
+
+- [Mattitja AB](https://github.com/MattitjaAB)
+- [All Contributors](../../contributors)
+
+## License
+
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
