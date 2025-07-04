@@ -24,7 +24,7 @@ it('can fetch and parse full article content', function () {
         'news.cision.com/*' => Http::response(file_get_contents(__DIR__.'/Fixtures/article.html')),
     ]);
 
-    $cision = new Cision;
+    $cision = new Cision('test-company');
     $content = $cision->fetchContent('https://news.cision.com/se/example/r/test,c123456');
 
     expect($content)->toHaveKeys(['header', 'published_at', 'content']);

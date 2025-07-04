@@ -15,7 +15,7 @@ class Cision
     /**
      * Constructor that accepts a slug identifier for the feed.
      */
-    public function __construct(?string $slug = null)
+    public function __construct(string $slug)
     {
         $this->slug = $slug;
     }
