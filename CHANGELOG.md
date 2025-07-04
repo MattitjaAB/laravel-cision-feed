@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-cision-feed` will be documented in this file.
 
+## v2.1 - 2025-07-04
+
+**Full Changelog**: https://github.com/MattitjaAB/laravel-cision-feed/compare/v2.0...v2.1
+
 ## v2.0 - 2025-07-04
 
 ### What's Changed
