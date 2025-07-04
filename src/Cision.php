@@ -114,30 +114,41 @@ class Cision
             return false;
         }
 
+        // Suppress XML parsing warnings
+        libxml_use_internal_errors(true);
         $xml = simplexml_load_string($data, "SimpleXMLElement", LIBXML_NOCDATA);
+        libxml_clear_errors();
+
         if ($xml === false) {
             return false;
         }
 
+        // Convert XML to JSON then to array
         $json = json_encode($xml);
         $rows = json_decode($json, true);
 
+        // Validate structure
         if (!isset($rows['channel']['item'])) {
             return false;
         }
 
-        $items = array_map(fn ($item) => [
+        // Ensure 'item' is always an array
+        $items = $rows['channel']['item'];
+        $items = isset($items[0]) ? $items : [$items];
+
+        // Format the result
+        $formatted = array_map(fn ($item) => [
             'guid' => $item['guid'],
             'title' => $item['title'],
             'description' => $item['description'],
             'link' => $item['link'],
             'created_at' => Carbon::parse($item['pubDate'])->addHours(2)->format('Y-m-d H:i:s'),
-        ], $rows['channel']['item']);
+        ], $items);
 
         return [
-            'items' => $items,
+            'items' => $formatted,
             'previous_page' => $page > 1 ? $page - 1 : false,
-            'next_page' => count($items) === 24 ? $page + 1 : false,
+            'next_page' => count($formatted) === 24 ? $page + 1 : false,
         ];
     }
 }

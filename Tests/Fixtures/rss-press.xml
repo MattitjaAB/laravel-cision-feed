@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+  <channel>
+    <title>Test Press Releases</title>
+    <item>
+      <guid>test-guid</guid>
+      <title>Test Press Title</title>
+      <description>This is a test press release description.</description>
+      <link>https://news.cision.com/se/example/r/test,c123456</link>
+      <pubDate>Fri, 04 Jul 2025 07:55:00 GMT</pubDate>
+    </item>
+  </channel>
+</rss>
