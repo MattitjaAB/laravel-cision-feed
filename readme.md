@@ -1,34 +1,56 @@
-# This is my package laravel-cision-feed
+# Laravel Cision Feed
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/mattitjaab/laravel-cision-feed.svg?style=flat-square)](https://packagist.org/packages/mattitjaab/laravel-cision-feed)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/mattitjaab/laravel-cision-feed/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/mattitjaab/laravel-cision-feed/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/mattitjaab/laravel-cision-feed/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/mattitjaab/laravel-cision-feed/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/mattitjaab/laravel-cision-feed/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/mattitjaab/laravel-cision-feed/actions?query=workflow%3A%22Fix+PHP+code+style+issues%22+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/mattitjaab/laravel-cision-feed.svg?style=flat-square)](https://packagist.org/packages/mattitjaab/laravel-cision-feed)
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+A Laravel package for retrieving and parsing data from [Cision News](https://news.cision.com/se). Fetch press releases, financial reports, media posts, and structured article content using a simple and expressive API.
 
-## Support us
+---
 
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/laravel-cision-feed.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/laravel-cision-feed)
+## Features
 
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
+- Retrieve Cision RSS feeds by type (Press, News, Financial, Media)
+- Parse article pages and extract clean structured HTML
+- Automatically handles encoding, formatting, and clean-up of content
+- Fully testable and extensible
 
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+---
 
 ## Installation
-
-You can install the package via composer:
 
 ```bash
 composer require mattitjaab/laravel-cision-feed
 ```
 
+You may optionally set your Cision slug in your `.env`:
+
+```
+LARAVEL_CISION_FEED_SLUG=your-cision-slug
+```
+
+---
+
 ## Usage
 
 ```php
-$cision = new Mattitja\Cision();
-echo $cision->echoPhrase('Hello, Mattitja!');
+use Mattitja\Cision\Cision;
+
+$cision = new Cision();
+
+// Fetch RSS entries
+$items = $cision->press(); // or ->news(), ->financial(), ->media()
+
+// Fetch full content for a specific article
+$article = $cision->fetchContent('https://news.cision.com/se/example-company/r/your-article-slug,c1234567');
+
+echo $article['header'];       // Article headline
+echo $article['published_at']; // ISO timestamp
+echo $article['content'];      // Clean HTML
 ```
+
+---
 
 ## Testing
 
@@ -36,23 +58,33 @@ echo $cision->echoPhrase('Hello, Mattitja!');
 composer test
 ```
 
+---
+
 ## Changelog
 
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
+See [CHANGELOG](CHANGELOG.md) for recent changes.
+
+---
 
 ## Contributing
 
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+Contributions are welcome! Please see [CONTRIBUTING](CONTRIBUTING.md) for guidelines.
 
-## Security Vulnerabilities
+---
 
-Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
+## Security
+
+If you discover any security-related issues, please refer to our [security policy](../../security/policy).
+
+---
 
 ## Credits
 
 - [Mattitja AB](https://github.com/MattitjaAB)
 - [All Contributors](../../contributors)
 
+---
+
 ## License
 
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+The MIT License (MIT). See [LICENSE](LICENSE.md) for details.
