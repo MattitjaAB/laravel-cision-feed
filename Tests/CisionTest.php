@@ -1,8 +1,7 @@
 <?php
 
-use Mattitja\Cision\Cision;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Str;
+use Mattitja\Cision\Cision;
 
 it('can fetch press releases from the RSS feed', function () {
     Http::fake([
@@ -25,7 +24,7 @@ it('can fetch and parse full article content', function () {
         'news.cision.com/*' => Http::response(file_get_contents(__DIR__.'/Fixtures/article.html')),
     ]);
 
-    $cision = new Cision();
+    $cision = new Cision;
     $content = $cision->fetchContent('https://news.cision.com/se/example/r/test,c123456');
 
     expect($content)->toHaveKeys(['header', 'published_at', 'content']);

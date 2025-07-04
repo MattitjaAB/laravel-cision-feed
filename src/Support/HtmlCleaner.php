@@ -2,9 +2,9 @@
 
 namespace Mattitja\Cision\Support;
 
+use DOMElement;
 use DOMNode;
 use DOMText;
-use DOMElement;
 
 class HtmlCleaner
 {
@@ -17,7 +17,7 @@ class HtmlCleaner
             return $node->wholeText;
         }
 
-        if (!($node instanceof DOMElement)) {
+        if (! ($node instanceof DOMElement)) {
             return null;
         }
 
@@ -35,6 +35,7 @@ class HtmlCleaner
                     return '<br>';
                 }
             }
+
             return null;
         }
 
@@ -52,9 +53,11 @@ class HtmlCleaner
                 $html = $node->C14N();
                 $isItalic = str_starts_with(trim($html), '<em') || str_starts_with(trim($html), '<i');
                 $class = $isItalic ? ' class="italic"' : '';
-                return "<p{$class}>" . trim($inner) . "</p>";
+
+                return "<p{$class}>".trim($inner).'</p>';
             }
-            return "<{$tag}>" . trim($inner) . "</{$tag}>";
+
+            return "<{$tag}>".trim($inner)."</{$tag}>";
         }
 
         if (in_array($tag, $allowedInline)) {

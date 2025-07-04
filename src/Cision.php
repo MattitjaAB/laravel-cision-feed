@@ -3,10 +3,10 @@
 namespace Mattitja\Cision;
 
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Client\Response;
-use Symfony\Component\DomCrawler\Crawler;
+use Illuminate\Support\Facades\Http;
 use Mattitja\Cision\Support\HtmlCleaner;
+use Symfony\Component\DomCrawler\Crawler;
 
 class Cision
 {
@@ -15,7 +15,7 @@ class Cision
     /**
      * Constructor that accepts a slug identifier for the feed.
      */
-    public function __construct(string $slug = null)
+    public function __construct(?string $slug = null)
     {
         $this->slug = $slug ?? env('LARAVEL_CISION_FEED_SLUG', '');
     }
@@ -105,7 +105,7 @@ class Cision
             $query['m'] = $type;
         }
 
-        return Http::get('https://news.cision.com/se/ListItems?' . http_build_query($query));
+        return Http::get('https://news.cision.com/se/ListItems?'.http_build_query($query));
     }
 
     protected function parseResponse(string $data, int $page): array|false
@@ -116,7 +116,7 @@ class Cision
 
         // Suppress XML parsing warnings
         libxml_use_internal_errors(true);
-        $xml = simplexml_load_string($data, "SimpleXMLElement", LIBXML_NOCDATA);
+        $xml = simplexml_load_string($data, 'SimpleXMLElement', LIBXML_NOCDATA);
         libxml_clear_errors();
 
         if ($xml === false) {
@@ -128,7 +128,7 @@ class Cision
         $rows = json_decode($json, true);
 
         // Validate structure
-        if (!isset($rows['channel']['item'])) {
+        if (! isset($rows['channel']['item'])) {
             return false;
         }
 

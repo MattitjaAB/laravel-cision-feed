@@ -4,7 +4,6 @@ namespace Mattitja\Cision;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Mattitja\Cision\Commands\CisionCommand;
 
 class CisionServiceProvider extends PackageServiceProvider
 {
