@@ -17,7 +17,7 @@ class Cision
      */
     public function __construct(?string $slug = null)
     {
-        $this->slug = $slug ?? env('LARAVEL_CISION_FEED_SLUG', '');
+        $this->slug = $slug;
     }
 
     public function all(int $page = 1): array|false
