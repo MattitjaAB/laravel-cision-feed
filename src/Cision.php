@@ -5,11 +5,16 @@ namespace Mattitja\Cision;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Client\Response;
+use Symfony\Component\DomCrawler\Crawler;
+use Mattitja\Cision\Support\HtmlCleaner;
 
 class Cision
 {
     protected string $slug;
 
+    /**
+     * Constructor that accepts a slug identifier for the feed.
+     */
     public function __construct(string $slug = null)
     {
         $this->slug = $slug ?? env('LARAVEL_CISION_FEED_SLUG', '');
@@ -49,6 +54,39 @@ class Cision
         }
 
         return $this->parseResponse($response->body(), $page);
+    }
+
+    /**
+     * Fetch and parse the HTML content of a Cision article URL.
+     */
+    public function fetchContent(string $url): array
+    {
+        $html = Http::get($url)->body();
+        $crawler = new Crawler($html);
+
+        $article = $crawler->filter('article')->first();
+
+        $header = trim($article->filter('h1')->text());
+        $publishedAt = $article->filter('time')->attr('datetime');
+
+        $allowedTags = ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ul', 'ol', 'li'];
+        $allowedInline = ['strong', 'b', 'em', 'i', 'br'];
+
+        $content = [];
+
+        foreach ($article as $node) {
+            foreach ($node->childNodes as $child) {
+                $content[] = HtmlCleaner::renderNode($child, $allowedTags, $allowedInline);
+            }
+        }
+
+        $cleaned = HtmlCleaner::clean(implode("\n", array_filter($content)));
+
+        return [
+            'header' => $header,
+            'published_at' => $publishedAt,
+            'content' => $cleaned,
+        ];
     }
 
     protected function makeRequest(int $page, ?string $type = null): Response|false
