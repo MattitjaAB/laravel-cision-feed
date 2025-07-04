@@ -1,20 +1,90 @@
-## How to install
-1. Install the package `composer require mathiaspalmqvist/laravel-cision-feed`
-2. add the cision company slug to `LARAVEL_CISION_FEED_SLUG` at your env
+# Laravel Cision Feed
 
-## Functions
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/mattitjaab/laravel-cision-feed.svg?style=flat-square)](https://packagist.org/packages/mattitjaab/laravel-cision-feed)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/mattitjaab/laravel-cision-feed/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/mattitjaab/laravel-cision-feed/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/mattitjaab/laravel-cision-feed/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/mattitjaab/laravel-cision-feed/actions?query=workflow%3A%22Fix+PHP+code+style+issues%22+branch%3Amain)
+[![Total Downloads](https://img.shields.io/packagist/dt/mattitjaab/laravel-cision-feed.svg?style=flat-square)](https://packagist.org/packages/mattitjaab/laravel-cision-feed)
 
-`LaravelCisionFeed::all();`
-Returns everyting from the feed.
+A Laravel package for retrieving and parsing data from [Cision News](https://news.cision.com/se). Fetch press releases, financial reports, media posts, and structured article content using a simple and expressive API.
 
-`LaravelCisionFeed::press();`
-Returns all press releases from the feed.
+---
 
-`LaravelCisionFeed::financial();`
-Returns all financial reports from the feed.
+## Features
 
-`LaravelCisionFeed::news();`
-Returns all news from the feed.
+- Retrieve Cision RSS feeds by type (Press, News, Financial, Media)
+- Parse article pages and extract clean structured HTML
+- Automatically handles encoding, formatting, and clean-up of content
+- Fully testable and extensible
 
-`LaravelCisionFeed::media();`
-Returns all media from the feed.
+---
+
+## Installation
+
+```bash
+composer require mattitjaab/laravel-cision-feed
+```
+
+You may optionally set your Cision slug in your `.env`:
+
+```
+LARAVEL_CISION_FEED_SLUG=your-cision-slug
+```
+
+---
+
+## Usage
+
+```php
+use Mattitja\Cision\Cision;
+
+$cision = new Cision();
+
+// Fetch RSS entries
+$items = $cision->press(); // or ->news(), ->financial(), ->media()
+
+// Fetch full content for a specific article
+$article = $cision->fetchContent('https://news.cision.com/se/example-company/r/your-article-slug,c1234567');
+
+echo $article['header'];       // Article headline
+echo $article['published_at']; // ISO timestamp
+echo $article['content'];      // Clean HTML
+```
+
+---
+
+## Testing
+
+```bash
+composer test
+```
+
+---
+
+## Changelog
+
+See [CHANGELOG](CHANGELOG.md) for recent changes.
+
+---
+
+## Contributing
+
+Contributions are welcome! Please see [CONTRIBUTING](CONTRIBUTING.md) for guidelines.
+
+---
+
+## Security
+
+If you discover any security-related issues, please refer to our [security policy](../../security/policy).
+
+---
+
+## Credits
+
+- [Mattitja AB](https://github.com/MattitjaAB)
+- [All Contributors](../../contributors)
+
+---
+
+## License
+
+The MIT License (MIT). See [LICENSE](LICENSE.md) for details.
